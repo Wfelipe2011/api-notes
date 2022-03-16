@@ -74,7 +74,7 @@ export class AppController {
       return 'Sua nota está sendo processada, consulte o status dentro de alguns minutos';
     } catch (error) {
       logger('Essa nota ja foi processada');
-      throw new HttpException('Essa nota já foi processada', 400);
+      throw new HttpException('Essa nota já foi processada', 409);
     }
   }
 
