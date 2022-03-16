@@ -1,10 +1,9 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
-  NotAcceptableException,
+  HttpException,
   Param,
   Post,
 } from '@nestjs/common';
@@ -60,11 +59,11 @@ export class AppController {
     @Body()
     body: NotesBody,
   ) {
-    if (!body?.code) throw new BadRequestException('Opa!');
+    if (!body?.code) throw new HttpException('No body', 400);
 
     const codeModel = `${body.code[20]}${body.code[21]}`;
     if (!listaAceitas.includes(codeModel))
-      throw new NotAcceptableException('Não temos suporte para essa nota');
+      throw new HttpException('Não temos suporte para essa nota', 404);
 
     logger(`${body.email} solicitou um processamento da nota ${body.code}`);
     this.setInitialBodyValues(body);
@@ -75,7 +74,7 @@ export class AppController {
       return 'Sua nota está sendo processada, consulte o status dentro de alguns minutos';
     } catch (error) {
       logger('Essa nota ja foi processada');
-      throw new BadRequestException('Essa nota já foi processada');
+      throw new HttpException('Essa nota já foi processada', 400);
     }
   }
 
