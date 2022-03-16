@@ -1,16 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { AxiosAdapter } from './infra/Http/axios.adapter';
-import { JobSchedule } from './infra/job-schedule';
+import { JobSchedulePending } from './infra/job-schedule-pending';
+import { JobScheduleProcess } from './infra/job-schedule-process';
 
 @Injectable()
 export class AppService {
-  jobSchedule: JobSchedule;
+  jobSchedulePending: JobSchedulePending;
+  jobScheduleProcess: JobScheduleProcess;
   constructor() {
-    this.jobSchedule = new JobSchedule(new AxiosAdapter());
+    this.jobSchedulePending = new JobSchedulePending(new AxiosAdapter());
+    this.jobScheduleProcess = new JobScheduleProcess(new AxiosAdapter());
+
     this.startJob();
   }
 
   startJob() {
-    // this.jobSchedule.execute('*/10 6-20 * * 1-5');
+    this.jobSchedulePending.execute('30 11 * * 3,5');
+    this.jobScheduleProcess.execute('*/5 * * * *');
   }
 }

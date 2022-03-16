@@ -43,7 +43,8 @@ export class AppController {
 
   @Get('job')
   async startJob() {
-    // chamar job
+    logger('Api esta de pe');
+    return 'ok';
   }
 
   @Delete()

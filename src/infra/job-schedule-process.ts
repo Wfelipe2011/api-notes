@@ -1,9 +1,9 @@
-import { API } from 'src/main';
+import { API_JOB, API_NOTES } from 'src/main';
 import { HttpAdapter } from './Http/http.adapter';
 import { Job } from './job.model';
 import { JobWork } from './schedule.adapter';
 
-export class JobSchedule extends Job {
+export class JobScheduleProcess extends Job {
   constructor(private readonly httpAdapter: HttpAdapter) {
     super();
   }
@@ -16,7 +16,8 @@ export class JobSchedule extends Job {
   }
 
   private async start(): Promise<void> {
-    this.httpAdapter.get(`${API}/job`);
+    this.httpAdapter.get(`${API_JOB}/notes`);
+    this.httpAdapter.get(`${API_NOTES}/job`);
     this.printDate('start Job Notes');
   }
 }
