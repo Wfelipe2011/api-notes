@@ -1,8 +1,17 @@
-import { Controller, Get, Param, Delete, Post, Body, BadRequestException, NotAcceptableException } from "@nestjs/common";
-import { logger } from "skyot";
-import { AppService } from "./app.service";
-import { User } from "./database/entity/UserEntity";
-import { Repository } from "./database/repository/Repository";
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotAcceptableException,
+  Param,
+  Post,
+} from '@nestjs/common';
+import { logger } from 'skyot';
+import { AppService } from './app.service';
+import { User } from './database/entity/UserEntity';
+import { Repository } from './database/repository/Repository';
 
 export interface NotesBody {
   _id?: string;
@@ -23,8 +32,13 @@ export class AppController {
     this.repository = new Repository(User);
   }
 
+  @Get('history')
+  async getNotes() {
+    return await this.repository.find();
+  }
+
   @Get('history/:email')
-  async getNotas(@Param() params: { email: string }) {
+  async getByEmailNotes(@Param() params: { email: string }) {
     return await this.repository.find({ email: params.email });
   }
 
