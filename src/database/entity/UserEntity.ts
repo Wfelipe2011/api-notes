@@ -13,7 +13,7 @@ const CodeEntity = {
     unique: true,
   },
   status: {
-    type: Boolean,
+    type: String,
   },
   date_processed: {
     type: Date,

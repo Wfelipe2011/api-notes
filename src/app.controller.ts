@@ -18,7 +18,7 @@ export interface NotesBody {
   email: string;
   date_processed?: Date;
   date_created?: string;
-  status?: boolean;
+  status?: 'success' | 'process' | 'pending' | 'invalid';
   nota?: any;
 }
 
@@ -86,6 +86,6 @@ export class AppController {
       })
       .split(',');
     body.date_created = created;
-    body.status = false;
+    body.status = 'process';
   }
 }
