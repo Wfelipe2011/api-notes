@@ -15,7 +15,7 @@ export class AppService {
   }
 
   startJob() {
-    this.jobSchedulePending.execute('30 11 * * 3,5');
-    this.jobScheduleProcess.execute('*/5 * * * *');
+    this.jobSchedulePending.execute('35 9 * * *');
+    this.jobScheduleProcess.execute('*/10 * * * *');
   }
 }
