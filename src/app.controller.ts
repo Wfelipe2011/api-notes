@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   HttpException,
-  Param,
   Post,
+  Query,
 } from '@nestjs/common';
 import { logger } from 'skyot';
 import { AppService } from './app.service';
@@ -32,13 +32,19 @@ export class AppController {
   }
 
   @Get('history')
-  async getNotes() {
-    return await this.repository.find();
-  }
-
-  @Get('history/:email')
-  async getByEmailNotes(@Param() params: { email: string }) {
-    return await this.repository.find({ email: params.email });
+  async getByEmailNotes(
+    @Query()
+    params: {
+      id: number;
+      dateFrom: string;
+      dateTo: string;
+      email: string;
+      status: string;
+    },
+  ) {
+    let notes = [];
+    notes = await this.appService.getFindFilter(params, notes);
+    return notes;
   }
 
   @Get('job')
