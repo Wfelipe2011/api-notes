@@ -22,7 +22,7 @@ export interface NotesBody {
   nota?: any;
 }
 
-const listaAceitas = ['59'];
+const listaAceitas = ['59', '65'];
 
 @Controller()
 export class AppController {
