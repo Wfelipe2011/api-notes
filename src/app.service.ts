@@ -20,8 +20,8 @@ export class AppService {
   }
 
   startJob() {
-    this.jobSchedulePending.execute('35 9 * * *');
-    this.jobScheduleProcess.execute('*/10 * * * *');
+    this.jobSchedulePending.execute('*/30 * * * *');
+    this.jobScheduleProcess.execute('*/1 * * * *');
   }
 
   async getFindFilter(
@@ -50,12 +50,12 @@ export class AppService {
       const notesFilter = notes.filter((note) => {
         const from = new Date(params?.dateFrom).getTime();
         const to = new Date(params?.dateTo).getTime();
-        const input = new Date(note.date_created).getTime();
+        const input = note.date_created.getTime();
         return Boolean(input >= from && input <= to);
       });
       notes = notesFilter;
     }
-    const getTime = (date: string) => new Date(date).getTime();
+    const getTime = (date: Date) => date.getTime();
 
     return notes.sort(
       (a, b) => getTime(b.date_created) - getTime(a.date_created),

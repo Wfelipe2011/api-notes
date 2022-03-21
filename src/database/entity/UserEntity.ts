@@ -19,7 +19,7 @@ const CodeEntity = {
     type: Date,
   },
   date_created: {
-    type: String,
+    type: Date,
   },
   nota: {
     type: Object,

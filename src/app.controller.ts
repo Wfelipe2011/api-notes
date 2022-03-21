@@ -17,7 +17,7 @@ export interface NotesBody {
   code: string;
   email: string;
   dateProcessed?: Date;
-  date_created?: string;
+  date_created?: Date;
   status?: 'analyse' | 'success' | 'process' | 'pending' | 'invalid';
   nota?: any;
 }
@@ -43,6 +43,7 @@ export class AppController {
     },
   ) {
     let notes = [];
+
     notes = await this.appService.getFindFilter(params, notes);
     return notes;
   }
@@ -55,9 +56,7 @@ export class AppController {
 
   @Delete()
   async delete() {
-    const data = await this.repository.find<NotesBody>({
-      code: '35220260479680001252651090001245291300863400',
-    });
+    const data = await this.repository.find<NotesBody>();
     data.forEach(async (body) => {
       await this.repository.delete(body._id);
     });
@@ -88,12 +87,7 @@ export class AppController {
   }
 
   private setInitialBodyValues(body: NotesBody) {
-    const [created] = new Date()
-      .toLocaleString('en', {
-        timeZone: 'America/Sao_Paulo',
-      })
-      .split(',');
-    body.date_created = created;
+    body.date_created = new Date();
     body.status = 'analyse';
   }
 }
