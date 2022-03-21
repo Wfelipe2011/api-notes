@@ -32,7 +32,7 @@ export class AppService {
       email: string;
       status: string;
     },
-    notes: any[],
+    notes: NotesBody[],
   ) {
     if (!params?.email && !params?.id)
       notes = await this.repository.find<NotesBody>();
@@ -55,6 +55,10 @@ export class AppService {
       });
       notes = notesFilter;
     }
-    return notes;
+    const getTime = (date: string) => new Date(date).getTime();
+
+    return notes.sort(
+      (a, b) => getTime(b.date_created) - getTime(a.date_created),
+    );
   }
 }

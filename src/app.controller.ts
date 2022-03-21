@@ -16,7 +16,7 @@ export interface NotesBody {
   _id?: string;
   code: string;
   email: string;
-  date_processed?: Date;
+  dateProcessed?: Date;
   date_created?: string;
   status?: 'analyse' | 'success' | 'process' | 'pending' | 'invalid';
   nota?: any;
@@ -55,7 +55,9 @@ export class AppController {
 
   @Delete()
   async delete() {
-    const data = await this.repository.find<NotesBody>();
+    const data = await this.repository.find<NotesBody>({
+      code: '35220260479680001252651090001245291300863400',
+    });
     data.forEach(async (body) => {
       await this.repository.delete(body._id);
     });
