@@ -20,8 +20,8 @@ export class AppService {
   }
 
   startJob() {
-    this.jobSchedulePending.execute('*/30 * * * *');
-    this.jobScheduleProcess.execute('*/1 * * * *');
+    this.jobSchedulePending.execute('0 0 * * *');
+    this.jobScheduleProcess.execute('*/4 * * * *');
   }
 
   async getFindFilter(

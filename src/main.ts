@@ -4,7 +4,10 @@ import { logger } from 'skyot';
 import { AppModule } from './app.module';
 import { MongoDBConect } from './database/config/mongoConnect';
 
-export const API_JOB = 'https://stix-job.herokuapp.com';
+export const API_JOB_ONE = 'https://notas-job1.herokuapp.com';
+export const API_JOB_TWO = 'https://notas-job2.herokuapp.com';
+export const API_JOB_THREE = 'https://notas-job3.herokuapp.com';
+export const API_JOB_FOUR = 'https://notas-job4.herokuapp.com';
 export const API_NOTES = 'https://stix-notes.herokuapp.com';
 
 async function bootstrap() {

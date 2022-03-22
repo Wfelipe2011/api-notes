@@ -1,4 +1,4 @@
-import { API_JOB } from 'src/main';
+import { API_JOB_ONE } from './../main';
 import { HttpAdapter } from './Http/http.adapter';
 import { Job } from './job.model';
 import { JobWork } from './schedule.adapter';
@@ -16,7 +16,7 @@ export class JobSchedulePending extends Job {
   }
 
   private async start(): Promise<void> {
-    this.httpAdapter.get(`${API_JOB}/notes-pending`);
+    this.httpAdapter.get(`${API_JOB_ONE}/notes-pending`);
     this.printDate('start Job Notes');
   }
 }
