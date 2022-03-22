@@ -23,10 +23,19 @@ export class JobScheduleProcess extends Job {
 
   private async start(): Promise<void> {
     this.httpAdapter.get(`${API_JOB_ONE}/notes`);
-    setTimeout(() => this.httpAdapter.get(`${API_JOB_TWO}/notes`), 1000);
-    setTimeout(() => this.httpAdapter.get(`${API_JOB_THREE}/notes`), 2000);
-    setTimeout(() => this.httpAdapter.get(`${API_JOB_FOUR}/notes`), 3000);
+    this.printDate('Job ONE Notes');
+    setTimeout(() => {
+      this.httpAdapter.get(`${API_JOB_TWO}/notes`);
+      this.printDate('Job TWO Notes');
+    }, 1000);
+    setTimeout(() => {
+      this.httpAdapter.get(`${API_JOB_THREE}/notes`);
+      this.printDate('Job THREE Notes');
+    }, 2000);
+    setTimeout(() => {
+      this.httpAdapter.get(`${API_JOB_FOUR}/notes`);
+      this.printDate('Job FOUR Notes');
+    }, 3000);
     this.httpAdapter.get(`${API_NOTES}/job`);
-    this.printDate('start Job Notes');
   }
 }
