@@ -27,15 +27,15 @@ export class JobScheduleProcess extends Job {
     setTimeout(() => {
       this.httpAdapter.get(`${API_JOB_TWO}/notes`);
       this.printDate('Job TWO Notes');
-    }, 1000);
+    }, 1000 * 60);
     setTimeout(() => {
       this.httpAdapter.get(`${API_JOB_THREE}/notes`);
       this.printDate('Job THREE Notes');
-    }, 2000);
+    }, 2000 * 60);
     setTimeout(() => {
       this.httpAdapter.get(`${API_JOB_FOUR}/notes`);
       this.printDate('Job FOUR Notes');
-    }, 3000);
+    }, 3000 * 60);
     this.httpAdapter.get(`${API_NOTES}/job`);
   }
 }
