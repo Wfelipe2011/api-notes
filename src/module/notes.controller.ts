@@ -1,22 +1,31 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Notes } from 'src/database/entity/NotesEntity';
 import { NotesRepository } from 'src/database/repository/notes.repository';
+import { description } from './config/swagger';
 import { NotesBody } from './dto/notes.dto';
-import { NotesPost } from './notes.service';
+import { IParams } from './dto/params.dto';
+import { GetNotes } from './useCase/get.notes';
+import { PostNotes } from './useCase/post.notes';
 
 @ApiTags('Notas')
 @Controller('notes')
 export class NotesController {
-  private notesPost: NotesPost;
+  private notesPost: PostNotes;
+  private notesGet: GetNotes;
+  repository: NotesRepository;
+
   constructor() {
-    this.notesPost = new NotesPost(new NotesRepository(Notes));
+    this.notesPost = new PostNotes(new NotesRepository(Notes));
+    this.notesGet = new GetNotes(new NotesRepository(Notes));
+    this.repository = new NotesRepository(Notes);
   }
 
-  @ApiOperation({ summary: 'Get all the books' })
+  @ApiOperation(description)
+  @ApiResponse({ status: 200, type: [NotesBody] })
   @Get()
-  getAllNotes() {
-    return [];
+  async getAllNotes(@Query() params: IParams) {
+    return await this.notesGet.execute(params);
   }
 
   @ApiOperation({ summary: 'Record notes to be analyzed' })
@@ -24,5 +33,14 @@ export class NotesController {
   @Post()
   async getHello(@Body() body: NotesBody) {
     await this.notesPost.execute(body);
+  }
+
+  @ApiOperation({ summary: '[ test ] delete all notes' })
+  @Delete()
+  async delete() {
+    const data = await this.repository.find<NotesBody>();
+    data.forEach(async (body) => {
+      await this.repository.delete(body._id);
+    });
   }
 }

@@ -1,11 +1,11 @@
 import { HttpException } from '@nestjs/common';
 import { logger } from 'skyot';
 import { INotesRepository } from 'src/interface/NotesRepository.interface';
-import { NotesBody } from './dto/notes.dto';
+import { NotesBody } from '../dto/notes.dto';
 
 const listAccept = ['59', '65'];
 
-export class NotesPost {
+export class PostNotes {
   constructor(private repository: INotesRepository) {}
 
   public async execute(body: NotesBody) {
