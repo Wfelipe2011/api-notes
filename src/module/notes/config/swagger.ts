@@ -1,6 +1,6 @@
 const clientId = {
   name: 'clientId',
-  example: 'c15884ca-aa0d-11ec-b909-0242ac120002',
+  example: '35172574848',
 };
 const dateFrom = {
   name: 'dateFrom',
@@ -22,7 +22,7 @@ const status = {
 const key = {
   name: 'key',
   description: 'your api key',
-  example: 'f224e078-313c-450f-8ad9-f6c84a607096',
+  example: 'f224e078',
 };
 const description = { summary: 'Get all notes' };
 

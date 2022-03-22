@@ -1,10 +1,11 @@
 import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Notes } from 'src/database/entity/NotesEntity';
 import { NotesRepository } from 'src/database/repository/notes.repository';
 import { description } from './config/swagger';
 import { NotesBody } from './dto/notes.dto';
 import { IParams } from './dto/params.dto';
+import { NotesRequestBody } from './dto/request.dto';
 import { GetNotes } from './useCase/get.notes';
 import { PostNotes } from './useCase/post.notes';
 
@@ -29,9 +30,8 @@ export class NotesController {
   }
 
   @ApiOperation({ summary: 'Record notes to be analyzed' })
-  @ApiBody({ type: NotesBody })
   @Post()
-  async getHello(@Body() body: NotesBody) {
+  async getHello(@Body() body: NotesRequestBody) {
     await this.notesPost.execute(body);
   }
 

@@ -7,8 +7,8 @@ export class GetNotes {
 
   public async execute(params: IParams) {
     let notes = [] as NotesBody[];
-    if (!params?.key && !params?.clientId)
-      notes = await this.repository.find<NotesBody>();
+
+    if (!params?.key || !params?.clientId) return [];
     if (params?.key)
       notes = await this.repository.find<NotesBody>({ key: params?.key });
     if (params?.clientId && !notes.length)
