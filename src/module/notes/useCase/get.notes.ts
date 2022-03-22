@@ -25,7 +25,7 @@ export class GetNotes {
       const notesFilter = notes.filter((note) => {
         const from = new Date(params?.dateFrom).getTime();
         const to = new Date(params?.dateTo).getTime();
-        const input = note.dateCreated.getTime();
+        const input = note?.dateCreated?.getTime();
         return Boolean(input >= from && input <= to);
       });
       notes = notesFilter;
