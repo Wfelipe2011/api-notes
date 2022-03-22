@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { clientId, dateFrom, dateTo, key } from '../config/swagger';
+import { clientId, dateFrom, dateTo, key, status } from '../config/swagger';
 
 export class IParams {
   @ApiProperty(key)
@@ -14,6 +14,6 @@ export class IParams {
   @ApiProperty(dateTo)
   dateTo?: string;
 
-  @ApiProperty({ example: 'process', required: false })
-  status?: string;
+  @ApiProperty(status)
+  status?: 'analyse' | 'success' | 'process' | 'pending' | 'invalid';
 }

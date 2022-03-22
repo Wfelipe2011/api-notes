@@ -16,9 +16,14 @@ const dateTo = {
 };
 const status = {
   name: 'status',
+  description: "'analyse' | 'success' | 'process' | 'pending' | 'invalid'",
   required: false,
 };
-const key = { name: 'key', example: 'f224e078-313c-450f-8ad9-f6c84a607096' };
+const key = {
+  name: 'key',
+  description: 'your api key',
+  example: 'f224e078-313c-450f-8ad9-f6c84a607096',
+};
 const description = { summary: 'Get all notes' };
 
 export { clientId, dateTo, dateFrom, description, key, status };
