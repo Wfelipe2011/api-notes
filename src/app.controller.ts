@@ -9,26 +9,17 @@ import {
 } from '@nestjs/common';
 import { logger } from 'skyot';
 import { AppService } from './app.service';
-import { User } from './database/entity/UserEntity';
-import { Repository } from './database/repository/Repository';
-
-export interface NotesBody {
-  _id?: string;
-  code: string;
-  email: string;
-  dateProcessed?: Date;
-  date_created?: Date;
-  status?: 'analyse' | 'success' | 'process' | 'pending' | 'invalid';
-  nota?: any;
-}
+import { Notes } from './database/entity/NotesEntity';
+import { NotesRepository } from './database/repository/notes.repository';
+import { NotesBody } from './module/dto/notes.dto';
 
 const listaAceitas = ['59', '65'];
 
 @Controller()
 export class AppController {
-  repository: Repository;
+  repository: NotesRepository;
   constructor(private readonly appService: AppService) {
-    this.repository = new Repository(User);
+    this.repository = new NotesRepository(Notes);
   }
 
   @Get('history')
@@ -73,7 +64,7 @@ export class AppController {
     if (!listaAceitas.includes(codeModel))
       throw new HttpException('Não temos suporte para essa nota', 404);
 
-    logger(`${body.email} solicitou um processamento da nota ${body.code}`);
+    logger(`${body.key} solicitou um processamento da nota ${body.code}`);
     this.setInitialBodyValues(body);
     try {
       logger('salvando...');
@@ -87,7 +78,7 @@ export class AppController {
   }
 
   private setInitialBodyValues(body: NotesBody) {
-    body.date_created = new Date();
+    body.dateCreated = new Date();
     body.status = 'analyse';
   }
 }

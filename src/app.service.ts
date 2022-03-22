@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { NotesBody } from './app.controller';
-import { User } from './database/entity/UserEntity';
-import { Repository } from './database/repository/Repository';
+import { Notes } from './database/entity/NotesEntity';
+import { NotesRepository } from './database/repository/notes.repository';
 import { AxiosAdapter } from './infra/Http/axios.adapter';
 import { JobSchedulePending } from './infra/job-schedule-pending';
 import { JobScheduleProcess } from './infra/job-schedule-process';
-
+import { INotesRepository } from './interface/NotesRepository.interface';
+import { NotesBody } from './module/dto/notes.dto';
 @Injectable()
 export class AppService {
   jobSchedulePending: JobSchedulePending;
   jobScheduleProcess: JobScheduleProcess;
-  repository: Repository;
+  repository: INotesRepository;
   constructor() {
     this.jobSchedulePending = new JobSchedulePending(new AxiosAdapter());
     this.jobScheduleProcess = new JobScheduleProcess(new AxiosAdapter());
-    this.repository = new Repository(User);
+    this.repository = new NotesRepository(Notes);
 
-    this.startJob();
+    // this.startJob();
   }
 
   startJob() {
@@ -50,7 +50,7 @@ export class AppService {
       const notesFilter = notes.filter((note) => {
         const from = new Date(params?.dateFrom).getTime();
         const to = new Date(params?.dateTo).getTime();
-        const input = note.date_created.getTime();
+        const input = note.dateCreated.getTime();
         return Boolean(input >= from && input <= to);
       });
       notes = notesFilter;
@@ -58,7 +58,7 @@ export class AppService {
     const getTime = (date: Date) => date.getTime();
 
     return notes.sort(
-      (a, b) => getTime(b.date_created) - getTime(a.date_created),
+      (a, b) => getTime(b.dateCreated) - getTime(a.dateCreated),
     );
   }
 }
