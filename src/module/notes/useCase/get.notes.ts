@@ -6,12 +6,10 @@ export class GetNotes {
   constructor(private repository: INotesRepository) {}
 
   public async execute(params: IParams) {
-    let notes = [] as NotesBody[];
-
     if (!params?.key || !params?.clientId) return [];
-    if (params?.key)
-      notes = await this.repository.find<NotesBody>({ key: params?.key });
-    if (params?.clientId && !notes.length)
+
+    let notes = [] as NotesBody[];
+    if (params?.clientId)
       notes = await this.repository.find<NotesBody>({
         clientId: params?.clientId,
       });
