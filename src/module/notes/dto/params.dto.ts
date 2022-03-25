@@ -6,7 +6,24 @@ export class IParams {
   key: string;
 
   @ApiProperty(clientId)
-  clientId: string;
+  clientId?: string;
+
+  @ApiProperty(dateFrom)
+  dateFrom?: string;
+
+  @ApiProperty(dateTo)
+  dateTo?: string;
+
+  @ApiProperty(status)
+  status?: 'analyse' | 'success' | 'process' | 'pending' | 'invalid';
+}
+
+export class IParamsAnalytics {
+  @ApiProperty(key)
+  key: string;
+
+  @ApiProperty({ ...clientId, required: false })
+  clientId?: string;
 
   @ApiProperty(dateFrom)
   dateFrom?: string;

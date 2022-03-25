@@ -25,5 +25,14 @@ const key = {
   example: 'f224e078',
 };
 const description = { summary: 'Get all notes' };
+const descriptionAnalytics = { summary: 'Get all notes analytics' };
 
-export { clientId, dateTo, dateFrom, description, key, status };
+export {
+  clientId,
+  dateTo,
+  dateFrom,
+  description,
+  key,
+  status,
+  descriptionAnalytics,
+};
