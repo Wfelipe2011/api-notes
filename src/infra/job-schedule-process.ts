@@ -3,7 +3,6 @@ import {
   API_JOB_ONE,
   API_JOB_THREE,
   API_JOB_TWO,
-  API_NOTES,
 } from 'src/main';
 import { HttpAdapter } from './Http/http.adapter';
 import { Job } from './job.model';
@@ -36,6 +35,6 @@ export class JobScheduleProcess extends Job {
       this.httpAdapter.get(`${API_JOB_FOUR}/notes`);
       this.printDate('Job FOUR Notes');
     }, 3000 * 60);
-    this.httpAdapter.get(`${API_NOTES}/job`);
+    // this.httpAdapter.get(`${API_NOTES}/job`);
   }
 }
